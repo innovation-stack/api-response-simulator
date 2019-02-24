@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>API Error Simulator Options</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../vendor/open-iconic-master/font/css/open-iconic-bootstrap.min.css">
+  <link rel="stylesheet" href="./options.css">
+</head>
+
+<body>
+  <main class="container">
+    <h1>Backend API Errors Simulator</h1>
+    <p>Enter Backend API error configuration that you want to test your app against.</p>
+    <form>
+      <div class="form-group">
+        <input type="url" class="form-control" id="url" placeholder="URL" required>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control verb" id="verb" placeholder="Verb" required>
+      </div>
+      <div class="form-group">
+        <input type="number" class="form-control error-code" id="error-code" placeholder="Error Code" required>
+      </div>
+      <button type="submit" id="save-entry" class="btn btn-primary">Save</button>
+      <button type="button" id="reset" class="btn btn-warning">Reset</button>
+      <button type="button" id="clear-table" class="btn btn-danger float-right">Clear Table</button>
+    </form>
+
+    <template id="entryRef">
+      <tr class="result-row">
+        <td class="url"></td>
+        <td class="verb"></td>
+        <td class="error-code"></td>
+        <td class="user-action">
+          <a class="oi oi-pencil edit"></a>
+          <a class="oi oi-trash delete"></a>
+        </td>
+      </tr>
+    </template>
+
+    <div id="no-data-container" class="alert alert-info no-data">No Rules Available</div>
+    <table id="result-table" class="table result-table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">URL</th>
+          <th scope="col">Verb</th>
+          <th scope="col">Error Code</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody id="result-table-body">
+      </tbody>
+    </table>
+  </main>
+
+  <script src="../vendor/jquery/jquery.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="./options.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+{
+    "name": "API Errors Simulator",
+    "manifest_version": 2,
+    "version": "0.0.1",
+    "browser_action": {
+        "default_popup": "./popup/popup.html"
+    },
+    "description": "Simulate API errors to test your app's behavior",
+    "permissions": [
+        "storage",
+        "webRequest",
+        "\u003Call\u005Furls\u003E",
+        "webRequestBlocking"
+    ],
+    "options_page": "./options/options.html",
+    "content_scripts": [
+        {
+            "js": ["./content-scripts/request-interceptor.js"],
+            "run_at": "document_start",
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ]
+}

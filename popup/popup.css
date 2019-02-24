@@ -1,0 +1,21 @@
+.wrapper {
+    width: 200px;
+}
+
+.app-heading {
+    color: #fff;
+    padding: 10px;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+.app-body {
+    padding: 10px;
+}
+
+.info {
+    font-size: 11px;
+}
+
+.options {
+    margin-top: 10px;
+}

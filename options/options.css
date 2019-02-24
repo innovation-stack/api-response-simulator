@@ -1,0 +1,33 @@
+.container {
+    margin-top: 50px;
+}
+
+.verb,
+.error-code {
+    width: 120px;
+}
+
+.result-table {
+    margin-top: 10px;
+}
+
+.close,
+.close:hover {
+    color: #fff;
+}
+
+.hide {
+    display: none;
+}
+
+.no-data {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.user-action a {
+    cursor: pointer;
+    color: #000;
+    text-decoration: none;
+    margin-left: 10px;
+}
