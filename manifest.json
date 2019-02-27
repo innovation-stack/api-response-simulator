@@ -15,7 +15,7 @@
     "options_page": "./options/options.html",
     "content_scripts": [
         {
-            "js": ["./content-scripts/request-interceptor.js"],
+            "js": ["./content-scripts/api-errors-simulator.js"],
             "run_at": "document_start",
             "matches": [
                 "<all_urls>"

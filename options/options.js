@@ -9,6 +9,7 @@
   const urlInput = document.querySelector('#url');
   const verbInput = document.querySelector('#verb');
   const errorCodeInput = document.querySelector('#error-code');
+  const partialUrlMatchCheckbox = document.querySelector('#partial-url-match');
   const clearTableButton = document.querySelector('#clear-table');
   const noDataContainer = document.querySelector('#no-data-container');
   let entries = [];
@@ -24,21 +25,24 @@
       urlInput !== null &&
       errorCodeInput !== null &&
       verbInput !== null &&
-      noDataContainer !== null;
+      noDataContainer !== null &&
+      partialUrlMatchCheckbox !== null;
   }
 
   function clearControls() {
     urlInput.value = '';
     verbInput.value = '';
     errorCodeInput.value = '';
+    partialUrlMatchCheckbox.checked = false;
     urlInput.focus();
   }
 
-  function addEntry(url, verb, errorCode, id) {
+  function addEntry(url, verb, errorCode, partialUrlMatch, id) {
     entries.push({
       id,
       url,
       verb,
+      partialUrlMatch,
       errorCode
     });
     chrome.storage.sync.set({entries}, function () {
@@ -46,11 +50,12 @@
     });
   }
 
-  function updateEntry(url, verb, errorCode, id) {
+  function updateEntry(url, verb, errorCode, partialUrlMatch, id) {
     const newEntry = {
       id,
       url,
       verb: verb.toUpperCase(),
+      partialUrlMatch,
       errorCode
     };
     const entryIndex = entries.findIndex(function (entry) {
@@ -64,9 +69,10 @@
     chrome.storage.sync.set({entries});
   }
 
-  function renderRow(url, verb, errorCode, id) {
+  function renderRow(url, verb, errorCode, partialUrlMatch, id) {
     const row = document.importNode(entryRefTemplate.content, true);
     row.querySelector('.url').textContent = url;
+    row.querySelector('.partial-url-match').textContent = partialUrlMatch;
     row.querySelector('.verb').textContent = verb.toUpperCase();
     row.querySelector('.error-code').textContent = errorCode;
     row.querySelector('.delete').setAttribute('data-id', id);
@@ -74,14 +80,16 @@
     resultTableBody.appendChild(row);
   }
 
-  function updateRow(row, url, verb, errorCode) {
+  function updateRow(row, url, verb, errorCode, partialUrlMatch) {
     row.querySelector('.url').textContent = url;
+    row.querySelector('.partial-url-match').textContent = partialUrlMatch;
     row.querySelector('.verb').textContent = verb.toUpperCase();
     row.querySelector('.error-code').textContent = errorCode;
   }
 
   function saveEntry(event) {
     const url = urlInput.value;
+    const partialUrlMatch = partialUrlMatchCheckbox.checked;
     const errorCode = errorCodeInput.value;
     const verb = verbInput.value;
     const selectedRow = resultTableBody.querySelector('.result-row.selected');
@@ -91,12 +99,12 @@
       event.preventDefault();
       if (isInEditMode && entries.length > 0 && selectedRow) {
         id = selectedRow.querySelector('[data-id]').getAttribute('data-id');
-        updateRow(selectedRow, url, verb, errorCode);
-        updateEntry(url, verb, errorCode, id);
+        updateRow(selectedRow, url, verb, errorCode, partialUrlMatch);
+        updateEntry(url, verb, errorCode, partialUrlMatch, id);
       } else {
         id = new Date().getTime()
-        renderRow(url, verb, errorCode, id);
-        addEntry(url, verb, errorCode, id);
+        renderRow(url, verb, errorCode, partialUrlMatch, id);
+        addEntry(url, verb, errorCode, partialUrlMatch, id);
       }
       isInEditMode = false;
       clearControls();
@@ -125,11 +133,13 @@
     const row = element.closest('.result-row');
     const url = row.querySelector('.url').textContent;
     const verb = row.querySelector('.verb').textContent;
+    const partialUrlMatch = row.querySelector('.partial-url-match').textContent;
     const errorCode = row.querySelector('.error-code').textContent;
 
     urlInput.value = url;
     verbInput.value = verb;
     errorCodeInput.value = errorCode;
+    partialUrlMatchCheckbox.checked = partialUrlMatch === 'true';
     row.classList.add('selected');
     isInEditMode = true;
   }
@@ -163,7 +173,7 @@
     const totalEntries = entries.length;
     for (let index = 0; index < totalEntries; index++) {
       const entry = entries[index];
-      renderRow(entry.url, entry.verb, entry.errorCode, entry.id);
+      renderRow(entry.url, entry.verb, entry.errorCode, entry.partialUrlMatch, entry.id);
     }
   }
 

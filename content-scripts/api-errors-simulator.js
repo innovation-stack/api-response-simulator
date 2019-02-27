@@ -41,13 +41,25 @@
                 'setMethod'
             ];
             const totalPassThroughMethods = passThroughMethods.length;
+            const entriesKeys = Object.keys(entries);
 
             function getMatchedEntry(xhr) {
                 let matchedEntry;
-                if (xhr.responseURL &&
-                    entries[xhr.responseURL] &&
-                    entries[xhr.responseURL].verb.toLowerCase() === xhr.method.toLowerCase()) {
-                    matchedEntry = entries[xhr.responseURL];
+
+                if (xhr.responseURL) {
+                    let entry = entries[xhr.responseURL];
+                    if (entry && entry.verb.toLowerCase() === xhr.method.toLowerCase()) {
+                        matchedEntry = entry;
+                    } else {
+                        const queryStringIndex = xhr.responseURL.indexOf('?');
+                        if (queryStringIndex >= 0) {
+                            const url = xhr.responseURL.substring(0, queryStringIndex);
+                            entry = entries[url];
+                            if (entry && entry.verb.toLowerCase() === xhr.method.toLowerCase() && entry.partialUrlMatch) {
+                                matchedEntry = entry;
+                            }
+                        }
+                    }
                 }
                 return matchedEntry;
             }
