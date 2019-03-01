@@ -1,7 +1,7 @@
 {
     "name": "API Errors Simulator",
     "manifest_version": 2,
-    "version": "0.0.1",
+    "version": "0.0.3",
     "browser_action": {
         "default_popup": "./popup/popup.html"
     },
