@@ -13,13 +13,13 @@
             const originalOpen = oldXMLHttpRequest.prototype.open;
             const entries = ${JSON.stringify(entries)};
             const getters = [
-                'responseType',
                 'readyState',
                 'responseXML',
                 'upload'
             ];
             const totalGetters = getters.length;
             const gettersSetters = [
+                'responseType',
                 'method',
                 'ontimeout',
                 'timeout',
