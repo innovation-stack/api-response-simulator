@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../vendor/materialize/css/materialize.min.css">
-  <link rel="stylesheet" href="../vendor/open-iconic-master/font/css/open-iconic-bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="./options.css">
 </head>
 
@@ -14,8 +14,7 @@
   <main>
     <header class="main-header">
       <div class="container-fluid">
-        <span class="logo-popup"></span>
-        Backend API Errors Simulator
+        <span class="logo-popup"></span> Backend API Errors Simulator
       </div>
     </header>
     <div class="container">
@@ -77,27 +76,35 @@
 
       <div class="card">
         <div class="card-content">
-          <button class="btn" id="clear-table">Clear Rules</button>
+          <!-- <button class="btn" id="clear-table">Clear Rules</button> -->
+
+          <button class="btn waves-effect waves-light clear-btn" id="clear-table"><i class="material-icons left">clear_all</i> Clear Rules</button>
           <div class="blank-info-msg m-tb-100" id="no-data-container">
             No Rules Available
           </div>
 
           <template id="entryRef">
             <tr class="result-row">
-              <td class="url"></td>
+              <td class="url"><div class="break-text url-max-width"></div></td>
               <td class="partial-url-match"></td>
               <td class="verb"></td>
               <td class="error-code"></td>
               <td class="user-action">
-                <a class="oi oi-pencil edit"></a>
-                <a class="oi oi-trash delete"></a>
+                <!-- <a class="oi oi-pencil "></a>
+                <a class="oi oi-trash "></a> -->
+                <a class="btn-floating waves-effect waves-light edit" title="Edit">
+                    <i class="material-icons left">edit</i>
+                </a>
+                <a class="btn-floating waves-effect waves-light red delete" title="Delete">
+                    <i class="material-icons left">delete</i>
+                </a>
               </td>
             </tr>
           </template>
 
 
-          <div class="table-responsive">
-            <table id="result-table" class="table result-table">
+          <div class="table-list-out">
+            <table id="result-table" class="table result-table highlight responsive-table">
               <thead class="thead-light">
                 <tr>
                   <th scope="col">URL</th>

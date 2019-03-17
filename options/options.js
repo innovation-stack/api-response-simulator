@@ -70,7 +70,7 @@
 
   function renderRow(url, verb, errorCode, partialUrlMatch, id) {
     const row = document.importNode(entryRefTemplate.content, true);
-    row.querySelector('.url').textContent = url;
+    row.querySelector('.url>div').textContent = url;
     row.querySelector('.partial-url-match').textContent = partialUrlMatch;
     row.querySelector('.verb').textContent = verb.toUpperCase();
     row.querySelector('.error-code').textContent = errorCode;
