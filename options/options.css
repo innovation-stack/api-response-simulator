@@ -101,6 +101,14 @@ body {
   display: none;
 }
 
+.user-action {
+  white-space: nowrap;
+}
+
+.no-wrap {
+  white-space: nowrap;
+}
+
 .user-action .btn-floating {
   width: 24px;
   height: 24px;
@@ -114,7 +122,7 @@ body {
 }
 
 .btn.clear-btn {
-    padding: 0 15px;
+  padding: 0 15px;
 }
 
 .btn,
