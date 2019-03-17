@@ -9,7 +9,19 @@ body {
   font-style: italic;
   font-size: 18px;
   padding: 10px;
+  position: relative;
+  padding-left: 50px;
 }
+
+.logo-popup {
+    width: 32px;
+    height: 32px;
+    background: url(../images/api-simulator-logo.svg) left top no-repeat;
+    background-size: 100%;
+    position: absolute;
+    left: 5px;
+    top: 5px;
+  }
 
 .row.no-margin {
   margin-bottom: 0;
