@@ -202,5 +202,7 @@
     }
   }
 
+  $('select').material_select();
+
   initialize();
 }());

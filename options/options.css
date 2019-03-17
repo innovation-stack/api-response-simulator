@@ -1,34 +1,53 @@
+body {
+    background-color: #f0f0f0;
+}
+
 .main-header {
-    background-color: #505050;
-    color: #fff;
-    font-weight: 500;
-    font-style: italic;
-    font-size: 18px;
-    padding: 10px;
+  background-color: #1a237e;
+  color: #fff;
+  font-weight: 500;
+  font-style: italic;
+  font-size: 18px;
+  padding: 10px;
 }
 
-.common-card {
-    padding: 15px;
-    box-shadow: 0 0 15px rgba(0, 0,0, 0.25);
+.row.no-margin {
+  margin-bottom: 0;
 }
 
+.top-form input {
+  margin-bottom: 0 !important;
+}
+
+.partial-check {
+  margin-top: 5px;
+}
 
 .container {
-    margin-top: 50px;
+  margin-top: 50px;
 }
 
 .blank-info-msg {
-    font-size: 1.2em;
-    font-weight: 300;
-    color: #8a8a8a;
-    text-align: center;
+  font-size: 1.5em;
+  font-weight: 400;
+  color: #8a8a8a;
+  text-align: center;
+}
+
+.info-text {
+    font-size: 1.3em;
+    font-weight: 400; 
 }
 
 .blank-info-msg.m-tb-100 {
-    margin: 100px 0;
+  margin: 100px 0;
 }
 
-.verb,
+.form-buttons {
+    margin-top: 25px;
+}
+
+/* .verb,
 .error-code {
     width: 120px;
 }
@@ -40,20 +59,106 @@
 .close,
 .close:hover {
     color: #fff;
-}
+} */
 
 .hide {
-    display: none;
+  display: none;
 }
 
-.no-data {
+/* .no-data {
     margin-top: 10px;
     text-align: center;
-}
+} */
 
 .user-action a {
-    cursor: pointer;
-    color: #000;
-    text-decoration: none;
-    margin-left: 10px;
+  cursor: pointer;
+  color: #000;
+  text-decoration: none;
+  margin-left: 10px;
 }
+
+.btn {
+  background-color: #1a237e;
+}
+
+.btn:hover {
+  background-color: #303f9f;
+}
+
+.btn:focus {
+  background-color: #283593;
+}
+
+.dropdown-content li > a,
+.dropdown-content li > span {
+  color: #1a237e;
+}
+
+input:not([type]):focus:not([readonly]),
+input[type="text"]:not(.browser-default):focus:not([readonly]),
+input[type="password"]:not(.browser-default):focus:not([readonly]),
+input[type="email"]:not(.browser-default):focus:not([readonly]),
+input[type="url"]:not(.browser-default):focus:not([readonly]),
+input[type="time"]:not(.browser-default):focus:not([readonly]),
+input[type="date"]:not(.browser-default):focus:not([readonly]),
+input[type="datetime"]:not(.browser-default):focus:not([readonly]),
+input[type="datetime-local"]:not(.browser-default):focus:not([readonly]),
+input[type="tel"]:not(.browser-default):focus:not([readonly]),
+input[type="number"]:not(.browser-default):focus:not([readonly]),
+input[type="search"]:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid #1a237e;
+  -webkit-box-shadow: 0 1px 0 0 #1a237e;
+  box-shadow: 0 1px 0 0 #1a237e;
+}
+
+input:not([type]):focus:not([readonly]) + label,
+input[type="text"]:not(.browser-default):focus:not([readonly]) + label,
+input[type="password"]:not(.browser-default):focus:not([readonly]) + label,
+input[type="email"]:not(.browser-default):focus:not([readonly]) + label,
+input[type="url"]:not(.browser-default):focus:not([readonly]) + label,
+input[type="time"]:not(.browser-default):focus:not([readonly]) + label,
+input[type="date"]:not(.browser-default):focus:not([readonly]) + label,
+input[type="datetime"]:not(.browser-default):focus:not([readonly]) + label,
+input[type="datetime-local"]:not(.browser-default):focus:not([readonly])
+  + label,
+input[type="tel"]:not(.browser-default):focus:not([readonly]) + label,
+input[type="number"]:not(.browser-default):focus:not([readonly]) + label,
+input[type="search"]:not(.browser-default):focus:not([readonly]) + label,
+textarea.materialize-textarea:focus:not([readonly]) + label {
+  color: #1a237e;
+}
+
+.input-field .prefix.active {
+  color: #1a237e;
+}
+
+[type="radio"]:checked + label:after,
+[type="radio"].with-gap:checked + label:before,
+[type="radio"].with-gap:checked + label:after {
+  border: 2px solid #1a237e;
+}
+
+[type="radio"]:checked + label:after,
+[type="radio"].with-gap:checked + label:after {
+  background-color: #1a237e;
+}
+
+[type="checkbox"]:checked + label:before {
+  border-right: 2px solid #1a237e;
+  border-bottom: 2px solid #1a237e;
+}
+
+[type="checkbox"]:indeterminate + label:before {
+  border-right: 2px solid #1a237e;
+}
+
+[type="checkbox"].filled-in:checked + label:after {
+    border: 2px solid #1a237e;
+    background-color: #1a237e;
+  }
+  
+  [type="checkbox"].filled-in.tabbed:checked:focus + label:after {
+    background-color: #1a237e;
+    border-color: #1a237e;
+  }
