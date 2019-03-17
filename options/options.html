@@ -25,34 +25,52 @@
         <div class="card-content">
           <form>
             <div class="row no-margin">
-              <div class="input-field col s4 l2 xl2">
-                <select>
-                <option value="" disabled selected>Choose option</option>
-                <option value="1">GET</option>
-                <option value="2">POST</option>
-              </select>
-                <label>Select Action</label>
-              </div>
-              <div class="col s8 l4 xl5">
-                <div class="input-field">
-                  <input id="url" type="url" class="validate" required>
-                  <label for="url">Enter URL</label>
+              <div class="col s12 l6 xl7 pad-l-0">
+                <div>
+                  <span class="section-title">
+                        Request Section
+                    </span>
                 </div>
 
-                <div class="partial-check">
-                  <input type="checkbox" id="partial-url-match">
-                  <label for="partial-url-match">Partial URL Match</label>
+                <div class="input-field col s6 l4 xl4">
+                  <select>
+                      <option value="" disabled selected>Choose option</option>
+                      <option value="1">GET</option>
+                      <option value="2">POST</option>
+                    </select>
+                  <label>Select Action</label>
+                </div>
+                <div class="col s6 l8 xl8">
+                  <div class="input-field">
+                    <input id="url" type="url" class="validate" required>
+                    <label for="url">Enter URL</label>
+                  </div>
+
+                  <div class="partial-check">
+                    <input type="checkbox" id="partial-url-match">
+                    <label for="partial-url-match">Partial URL Match</label>
+                  </div>
                 </div>
               </div>
-              <div class="input-field col s8 l2 xl2">
-                <input type="number" class="validate" id="error-code" required>
-                <label for="error-code">Error Code</label>
+
+              <div class="col s12 l6 xl5 pad-r-0 pad-l-0">
+                <div>
+                  <span class="section-title">
+                      Response Section
+                  </span>
+                </div>
+                <div class="input-field col s8 l5 xl5">
+                  <input type="number" class="validate" id="error-code" required>
+                  <label for="error-code">Error Code</label>
+                </div>
+
+                <div class="input-field col s12 l7 xl7 pad-r-0 form-buttons">
+                  <button type="submit" id="save-entry" class="btn waves-effect waves-light">Save</button>
+                  <button type="button" id="reset" class="waves-effect waves-light btn-flat">Reset</button>
+                </div>
               </div>
 
-              <div class="input-field col s12 l4 xl3 form-buttons">
-                <button type="submit" id="save-entry" class="btn waves-effect waves-light">Save</button>
-                <button type="button" id="reset" class="waves-effect waves-light btn-flat">Reset</button>
-              </div>
+
             </div>
 
           </form>

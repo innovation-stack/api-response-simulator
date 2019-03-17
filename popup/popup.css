@@ -5,7 +5,7 @@
 .app-heading {
   color: #fff;
   padding: 10px;
-  background-color: #1a237e;
+  background-color: #0d47a1;
   font-size: 1.25em;
   font-weight: bold;
   text-align: right;
@@ -30,7 +30,7 @@
 }
 
 .btn {
-  background-color: #1a237e;
+  background-color: #0d47a1;
 }
 
 .btn:hover {
@@ -46,7 +46,7 @@
 }
 
 .switch label input[type=checkbox]:checked + .lever:after {
-  background-color: #1a237e;
+  background-color: #0d47a1;
 }
 /* .btn.options {
   margin-top: 30px;
