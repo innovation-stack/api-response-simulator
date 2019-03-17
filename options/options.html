@@ -14,14 +14,13 @@
   <main>
     <header class="main-header">
       <div class="container-fluid">
-          <span class="logo-popup"></span>
+        <span class="logo-popup"></span>
         Backend API Errors Simulator
       </div>
     </header>
     <div class="container">
       <label class="info-text">Enter Backend API error configuration that you want to test your app against.</label>
 
-      <!-- WIP by Jainul -->
       <div class="card top-form">
         <div class="card-content">
           <form>
@@ -29,16 +28,17 @@
               <div class="col s12 l6 xl7 pad-l-0">
                 <div>
                   <span class="section-title">
-                        Request Section
-                    </span>
+                    Request
+                  </span>
                 </div>
 
                 <div class="input-field col s6 l4 xl4">
-                  <select>
-                      <option value="" disabled selected>Choose option</option>
-                      <option value="1">GET</option>
-                      <option value="2">POST</option>
-                    </select>
+                  <select id="verb">
+                    <option value="GET">GET</option>
+                    <option value="POST">POST</option>
+                    <option value="PUT">PUT</option>
+                    <option value="DELETE">DELETE</option>
+                  </select>
                   <label>Select Action</label>
                 </div>
                 <div class="col s6 l8 xl8">
@@ -57,7 +57,7 @@
               <div class="col s12 l6 xl5 pad-r-0 pad-l-0">
                 <div>
                   <span class="section-title">
-                      Response Section
+                    Response
                   </span>
                 </div>
                 <div class="input-field col s8 l5 xl5">
@@ -70,17 +70,14 @@
                   <button type="button" id="reset" class="waves-effect waves-light btn-flat">Reset</button>
                 </div>
               </div>
-
-
             </div>
-
           </form>
         </div>
-
       </div>
 
       <div class="card">
         <div class="card-content">
+          <button class="btn" id="clear-table">Clear Rules</button>
           <div class="blank-info-msg m-tb-100" id="no-data-container">
             No Rules Available
           </div>
@@ -98,6 +95,7 @@
             </tr>
           </template>
 
+
           <div class="table-responsive">
             <table id="result-table" class="table result-table">
               <thead class="thead-light">
@@ -114,59 +112,8 @@
             </table>
           </div>
         </div>
-
       </div>
-
-      <!-- <form>
-        <div class="form-group">
-          <input type="url" class="form-control" id="url" placeholder="URL" required>
-        </div>
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="partial-url-match">
-          <label for="partial-url-match">Partial URL Match</label>
-        </div>
-        <div class="form-group">
-          <input type="text" class="form-control verb" id="verb" placeholder="Verb" required>
-        </div>
-        <div class="form-group">
-          <input type="number" class="form-control error-code" id="error-code" placeholder="Error Code" required>
-        </div>
-        <button type="submit" id="save-entry" class="btn btn-primary">Save</button>
-        <button type="button" id="reset" class="btn btn-warning">Reset</button>
-        <button type="button" id="clear-table" class="btn btn-danger float-right">Clear Table</button>
-      </form> -->
-
-      <!-- <template id="entryRef">
-        <tr class="result-row">
-          <td class="url"></td>
-          <td class="partial-url-match"></td>
-          <td class="verb"></td>
-          <td class="error-code"></td>
-          <td class="user-action">
-            <a class="oi oi-pencil edit"></a>
-            <a class="oi oi-trash delete"></a>
-          </td>
-        </tr>
-      </template> -->
-
-      <!-- <div id="no-data-container" class="alert alert-info no-data">No Rules Available</div>
-      <div class="table-responsive">
-        <table id="result-table" class="table table-responsive result-table">
-          <thead class="thead-light">
-            <tr>
-              <th scope="col">URL</th>
-              <th scope="col">Partial URL Match</th>
-              <th scope="col">Verb</th>
-              <th scope="col">Error Code</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody id="result-table-body">
-          </tbody>
-        </table>
-      </div> -->
     </div>
-
   </main>
 
   <script src="../vendor/jquery/jquery.js"></script>

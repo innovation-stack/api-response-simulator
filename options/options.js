@@ -31,7 +31,6 @@
 
   function clearControls() {
     urlInput.value = '';
-    verbInput.value = '';
     errorCodeInput.value = '';
     partialUrlMatchCheckbox.checked = false;
     urlInput.focus();
@@ -142,6 +141,15 @@
     partialUrlMatchCheckbox.checked = partialUrlMatch === 'true';
     row.classList.add('selected');
     isInEditMode = true;
+
+    $(verbInput).material_select();
+
+    setTimeout(function () {
+      verbInput.focus();
+      errorCodeInput.focus();
+      partialUrlMatchCheckbox.focus();
+      urlInput.focus();
+    }, 0);
   }
 
   function performAction(event) {
@@ -189,6 +197,7 @@
 
   function initialize() {
     if (areControlsValid()) {
+      $(verbInput).material_select();
       chrome.storage.sync.get(['entries'], function (result) {
         entries = result.entries || [];
         bindListeners();
@@ -202,7 +211,7 @@
     }
   }
 
-  $('select').material_select();
-
-  initialize();
+  document.addEventListener('DOMContentLoaded', function () {
+    initialize();
+  });
 }());
