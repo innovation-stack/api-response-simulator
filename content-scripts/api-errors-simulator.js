@@ -77,7 +77,7 @@
                     if (this.readyState === 4) {
                         const matchedEntry = getMatchedEntry(this);
                         if (matchedEntry) {
-                            self.statusText = 'Error thrown by Backend Simulator Chrome Extension';
+                            self.statusText = 'Error thrown by API Errors Simulator Chrome Extension';
                             self.status = +matchedEntry.errorCode;
                             self.response = {error: true};
                             self.responseText = JSON.stringify({error: true});

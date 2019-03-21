@@ -6,6 +6,11 @@
         "default_popup": "./popup/popup.html"
     },
     "description": "Simulate API errors to test your app's behavior",
+    "icons": {
+        "128": "icon128.png",
+        "48": "icon48.png",
+        "16": "icon16.png"
+    },
     "permissions": [
         "storage",
         "webRequest",
