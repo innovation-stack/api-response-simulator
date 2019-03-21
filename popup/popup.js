@@ -2,21 +2,17 @@
     'use strict';
 
     const toggleFeature = document.querySelector('#toggle-feature');
-    const featureStatus = document.querySelector('#feature-status');
     const optionsButton = document.querySelector('#options');
 
     function controlsExists() {
         return toggleFeature !== null &&
-            optionsButton !== null &&
-            featureStatus !== null;
+            optionsButton !== null;
     }
 
     function updateUI(isEnabled) {
         if (isEnabled) {
-            featureStatus.textContent = 'SWITCH OFF';
             toggleFeature.checked = true;
         } else {
-            featureStatus.textContent = 'SWITCH ON';
             toggleFeature.checked = false;
         }
     }

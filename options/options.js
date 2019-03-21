@@ -31,7 +31,6 @@
 
   function clearControls() {
     urlInput.value = '';
-    verbInput.value = '';
     errorCodeInput.value = '';
     partialUrlMatchCheckbox.checked = false;
     urlInput.focus();
@@ -71,7 +70,7 @@
 
   function renderRow(url, verb, errorCode, partialUrlMatch, id) {
     const row = document.importNode(entryRefTemplate.content, true);
-    row.querySelector('.url').textContent = url;
+    row.querySelector('.url>div').textContent = url;
     row.querySelector('.partial-url-match').textContent = partialUrlMatch;
     row.querySelector('.verb').textContent = verb.toUpperCase();
     row.querySelector('.error-code').textContent = errorCode;
@@ -142,6 +141,15 @@
     partialUrlMatchCheckbox.checked = partialUrlMatch === 'true';
     row.classList.add('selected');
     isInEditMode = true;
+
+    $(verbInput).material_select();
+
+    setTimeout(function () {
+      verbInput.focus();
+      errorCodeInput.focus();
+      partialUrlMatchCheckbox.focus();
+      urlInput.focus();
+    }, 0);
   }
 
   function performAction(event) {
@@ -189,6 +197,7 @@
 
   function initialize() {
     if (areControlsValid()) {
+      $(verbInput).material_select();
       chrome.storage.sync.get(['entries'], function (result) {
         entries = result.entries || [];
         bindListeners();
@@ -202,5 +211,7 @@
     }
   }
 
-  initialize();
+  document.addEventListener('DOMContentLoaded', function () {
+    initialize();
+  });
 }());

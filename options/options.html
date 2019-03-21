@@ -5,8 +5,8 @@
   <title>API Error Simulator Options</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../vendor/open-iconic-master/font/css/open-iconic-bootstrap.min.css">
+  <link rel="stylesheet" href="../vendor/materialize/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="./options.css">
 </head>
 
@@ -14,126 +14,113 @@
   <main>
     <header class="main-header">
       <div class="container-fluid">
-        Backend API Errors Simulator
+        <span class="logo-popup"></span> Backend API Errors Simulator
       </div>
     </header>
     <div class="container">
-      <p>Enter Backend API error configuration that you want to test your app against.</p>
+      <label class="info-text">Enter Backend API error configuration that you want to test your app against.</label>
 
-      <!-- WIP by Jainul -->
-      <div class="card common-card mb-3">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">GET</button>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="#">GET</a>
-                  <a class="dropdown-item" href="#">POST</a>
+      <div class="card top-form">
+        <div class="card-content">
+          <form>
+            <div class="row no-margin">
+              <div class="col s12 l6 xl7 pad-l-0">
+                <div>
+                  <span class="section-title">
+                    Request
+                  </span>
+                </div>
+
+                <div class="input-field col s6 l4 xl4">
+                  <select id="verb">
+                    <option value="GET">GET</option>
+                    <option value="POST">POST</option>
+                    <option value="PUT">PUT</option>
+                    <option value="DELETE">DELETE</option>
+                  </select>
+                  <label>Select Action</label>
+                </div>
+                <div class="col s6 l8 xl8">
+                  <div class="input-field">
+                    <input id="url" type="url" class="validate" required>
+                    <label for="url">Enter URL</label>
+                  </div>
+
+                  <div class="partial-check">
+                    <input type="checkbox" id="partial-url-match">
+                    <label for="partial-url-match">Partial URL Match</label>
+                  </div>
                 </div>
               </div>
-              <input type="url" class="form-control" id="url" placeholder="Enter URL" required>
-              <div class="input-group-append">
-                <input type="number" class="form-control error-code mr-3" id="error-code" placeholder="Error Code" required>
 
-                <button type="submit" id="save-entry" class="btn btn-primary">Save</button>
-                <button type="button" id="reset" class="btn btn-secondary">Reset</button>
+              <div class="col s12 l6 xl5 pad-r-0 pad-l-0">
+                <div>
+                  <span class="section-title">
+                    Response
+                  </span>
+                </div>
+                <div class="input-field col s8 l5 xl5">
+                  <input type="number" class="validate" id="error-code" required>
+                  <label for="error-code">Error Code</label>
+                </div>
+
+                <div class="input-field col s12 l7 xl7 pad-r-0 form-buttons">
+                  <button type="submit" id="save-entry" class="btn waves-effect waves-light">Save</button>
+                  <button type="button" id="reset" class="waves-effect waves-light btn-flat">Reset</button>
+                </div>
               </div>
             </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-content">
+          <button class="btn waves-effect waves-light clear-btn" id="clear-table"><i class="material-icons left">clear_all</i> Clear Rules</button>
+          <div class="blank-info-msg m-tb-100" id="no-data-container">
+            No Rules Available
+          </div>
+
+          <template id="entryRef">
+            <tr class="result-row">
+              <td class="url"><div class="break-text url-max-width"></div></td>
+              <td class="partial-url-match"></td>
+              <td class="verb"></td>
+              <td class="error-code"></td>
+              <td class="user-action">
+                <a class="btn-floating waves-effect waves-light" title="Edit">
+                    <i class="material-icons left edit">edit</i>
+                </a>
+                <a class="btn-floating waves-effect waves-light red" title="Delete">
+                    <i class="material-icons left delete">delete</i>
+                </a>
+              </td>
+            </tr>
+          </template>
+
+
+          <div class="table-list-out">
+            <table id="result-table" class="table result-table highlight responsive-table">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">URL</th>
+                  <th scope="col" class="no-wrap">Partial URL Match</th>
+                  <th scope="col">Verb</th>
+                  <th scope="col" class="no-wrap">Error Code</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody id="result-table-body">
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
-
-      <div class="card common-card mb-3">
-        <div class="blank-info-msg m-tb-100" id="no-data-container">
-          No Rules Available
-        </div>
-
-        <template id="entryRef">
-          <tr class="result-row">
-            <td class="url"></td>
-            <td class="partial-url-match"></td>
-            <td class="verb"></td>
-            <td class="error-code"></td>
-            <td class="user-action">
-              <a class="oi oi-pencil edit"></a>
-              <a class="oi oi-trash delete"></a>
-            </td>
-          </tr>
-        </template>
-
-        <div class="table-responsive">
-          <table id="result-table" class="table result-table">
-            <thead class="thead-light">
-              <tr>
-                <th scope="col">URL</th>
-                <th scope="col">Partial URL Match</th>
-                <th scope="col">Verb</th>
-                <th scope="col">Error Code</th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody id="result-table-body">
-            </tbody>
-          </table>
-        </div>
-
-      </div>
-
-      <form>
-        <div class="form-group">
-          <input type="url" class="form-control" id="url" placeholder="URL" required>
-        </div>
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="partial-url-match">
-          <label for="partial-url-match">Partial URL Match</label>
-        </div>
-        <div class="form-group">
-          <input type="text" class="form-control verb" id="verb" placeholder="Verb" required>
-        </div>
-        <div class="form-group">
-          <input type="number" class="form-control error-code" id="error-code" placeholder="Error Code" required>
-        </div>
-        <button type="submit" id="save-entry" class="btn btn-primary">Save</button>
-        <button type="button" id="reset" class="btn btn-warning">Reset</button>
-        <button type="button" id="clear-table" class="btn btn-danger float-right">Clear Table</button>
-      </form>
-
-      <!-- <template id="entryRef">
-        <tr class="result-row">
-          <td class="url"></td>
-          <td class="partial-url-match"></td>
-          <td class="verb"></td>
-          <td class="error-code"></td>
-          <td class="user-action">
-            <a class="oi oi-pencil edit"></a>
-            <a class="oi oi-trash delete"></a>
-          </td>
-        </tr>
-      </template> -->
-
-      <!-- <div id="no-data-container" class="alert alert-info no-data">No Rules Available</div>
-      <div class="table-responsive">
-        <table id="result-table" class="table table-responsive result-table">
-          <thead class="thead-light">
-            <tr>
-              <th scope="col">URL</th>
-              <th scope="col">Partial URL Match</th>
-              <th scope="col">Verb</th>
-              <th scope="col">Error Code</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody id="result-table-body">
-          </tbody>
-        </table>
-      </div> -->
     </div>
-
   </main>
 
   <script src="../vendor/jquery/jquery.js"></script>
-  <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="../vendor/materialize/js/materialize.min.js"></script>
   <script src="./options.js"></script>
 </body>
 
