@@ -141,7 +141,7 @@
     }
 
     function destroyDOM() {
-        const xhrScript = document.querySelector('api-errors-simulator');
+        const xhrScript = document.querySelector('#api-errors-simulator');
         xhrScript.removeChild();
     }
 
