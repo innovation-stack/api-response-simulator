@@ -1,9 +1,20 @@
 (function () {
 
-    function buildScriptTag() {
+    function buildScriptTag(id) {
         const xhrScript = document.createElement('script');
+        xhrScript.id = id;
         xhrScript.type = 'text/javascript';
         return xhrScript;
+    }
+
+    function buildRestoreXMLHttpRequestScript() {
+        return `
+        (function () {
+            delete window.entries;
+            window.XMLHttpRequest = window.oldXMLHttpRequest;
+            window.XMLHttpRequest.prototype.open = originalOpen;
+        })();
+        `;
     }
 
     function buildRequestInterceptor(entries) {
@@ -11,7 +22,6 @@
         (function() {
             const oldXMLHttpRequest = XMLHttpRequest;
             const originalOpen = oldXMLHttpRequest.prototype.open;
-            const entries = ${JSON.stringify(entries)};
             const getters = [
                 'readyState',
                 'responseXML',
@@ -41,20 +51,24 @@
                 'setMethod'
             ];
             const totalPassThroughMethods = passThroughMethods.length;
-            const entriesKeys = Object.keys(entries);
+
+            window.entries = ${JSON.stringify(entries)};
+            window.oldXMLHttpRequest = oldXMLHttpRequest;
+            window.originalOpen = originalOpen;
+            const entriesKeys = Object.keys(window.entries);
 
             function getMatchedEntry(xhr) {
                 let matchedEntry;
 
                 if (xhr.responseURL) {
-                    let entry = entries[xhr.responseURL];
+                    let entry = window.entries[xhr.responseURL];
                     if (entry && entry.verb.toLowerCase() === xhr.method.toLowerCase()) {
                         matchedEntry = entry;
                     } else {
                         const queryStringIndex = xhr.responseURL.indexOf('?');
                         if (queryStringIndex >= 0) {
                             const url = xhr.responseURL.substring(0, queryStringIndex);
-                            entry = entries[url];
+                            entry = window.entries[url];
                             if (entry && entry.verb.toLowerCase() === xhr.method.toLowerCase() && entry.partialUrlMatch) {
                                 matchedEntry = entry;
                             }
@@ -125,8 +139,7 @@
     function prepareDOM() {
         if (document.head && document.body) {
             chrome.storage.sync.get(['entries'], function (result) {
-                const xhrScript = buildScriptTag();
-                xhrScript.id = 'api-errors-simulator';
+                const xhrScript = buildScriptTag('api-errors-simulator');
                 result.entries = result.entries || [];
                 const mappedEntries = result.entries.reduce(function (acc, entry) {
                     acc[entry.url] = entry;
@@ -141,8 +154,16 @@
     }
 
     function destroyDOM() {
-        const xhrScript = document.querySelector('#api-errors-simulator');
-        xhrScript.remove();
+        let xhrScript = document.querySelector('#api-errors-simulator');
+        if (xhrScript) {
+            xhrScript.remove();
+            xhrScript = buildScriptTag('api-errors-simulator-destroy');
+            xhrScript.innerHTML = buildRestoreXMLHttpRequestScript();
+            document.head.prepend(xhrScript);
+            setTimeout(function () {
+                xhrScript.remove();
+            }, 50);
+        }
     }
 
     chrome.storage.sync.get(['enabled'], function (result) {
@@ -154,6 +175,10 @@
     chrome.storage.onChanged.addListener(function(changes) {
         if (changes.enabled && changes.enabled.newValue === '0') {
             destroyDOM();
+        }else if ((changes.enabled && changes.enabled.newValue === '1') ||
+            (changes.entries && changes.entries.newValue)) {
+            destroyDOM();
+            prepareDOM();
         }
     });
 }());
