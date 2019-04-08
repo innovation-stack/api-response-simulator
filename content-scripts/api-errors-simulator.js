@@ -126,6 +126,7 @@
         if (document.head && document.body) {
             chrome.storage.sync.get(['entries'], function (result) {
                 const xhrScript = buildScriptTag();
+                xhrScript.id = 'api-errors-simulator';
                 result.entries = result.entries || [];
                 const mappedEntries = result.entries.reduce(function (acc, entry) {
                     acc[entry.url] = entry;
@@ -139,9 +140,20 @@
         }
     }
 
+    function destroyDOM() {
+        const xhrScript = document.querySelector('api-errors-simulator');
+        xhrScript.removeChild();
+    }
+
     chrome.storage.sync.get(['enabled'], function (result) {
         if (result.enabled === '1') {
             requestIdleCallback(prepareDOM);
+        }
+    });
+
+    chrome.storage.onChanged.addListener(function(changes) {
+        if (changes.enabled && changes.enabled.newValue === '0') {
+            destroyDOM();
         }
     });
 }());
