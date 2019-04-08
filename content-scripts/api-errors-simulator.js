@@ -142,7 +142,7 @@
 
     function destroyDOM() {
         const xhrScript = document.querySelector('#api-errors-simulator');
-        xhrScript.removeChild();
+        xhrScript.remove();
     }
 
     chrome.storage.sync.get(['enabled'], function (result) {
