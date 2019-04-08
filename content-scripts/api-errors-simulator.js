@@ -60,7 +60,7 @@
             function getMatchedEntry(xhr) {
                 let matchedEntry;
 
-                if (xhr.responseURL) {
+                if (xhr.responseURL && window.entries) {
                     let entry = window.entries[xhr.responseURL];
                     if (entry && entry.verb.toLowerCase() === xhr.method.toLowerCase()) {
                         matchedEntry = entry;
