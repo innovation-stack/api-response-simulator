@@ -30,7 +30,6 @@
                     Request
                   </span>
                 </div>
-
                 <div class="input-field col s6 l4 xl4">
                   <select id="verb">
                     <option value="GET">GET</option>
@@ -40,19 +39,17 @@
                   </select>
                   <label>Select Action</label>
                 </div>
-                <div class="col s6 l8 xl8">
+                <div class="col s6 l6 xl8">
                   <div class="input-field">
                     <input id="url" type="url" class="validate" required>
                     <label for="url">Enter URL</label>
                   </div>
-
                   <div class="partial-check">
                     <input type="checkbox" id="partial-url-match">
                     <label for="partial-url-match">Partial URL Match</label>
                   </div>
                 </div>
               </div>
-
               <div class="col s12 l6 xl5 pad-r-0 pad-l-0">
                 <div>
                   <span class="section-title">
@@ -63,7 +60,12 @@
                   <input type="number" class="validate" id="error-code" required>
                   <label for="error-code">Error Code</label>
                 </div>
-
+                <div class="input-field col s8 l5 xl5">
+                  <input type="text" class="validate" id="error-response" required>
+                  <label for="error-response">Response</label>
+                </div>
+              </div>
+              <div class="col s12 l6 x15 pad-r-0 pad-l-0">
                 <div class="input-field col s12 l7 xl7 pad-r-0 form-buttons">
                   <button type="submit" id="save-entry" class="btn waves-effect waves-light">Save</button>
                   <button type="button" id="reset" class="waves-effect waves-light btn-flat">Reset</button>
@@ -73,7 +75,6 @@
           </form>
         </div>
       </div>
-
       <div class="card">
         <div class="card-content">
           <button class="btn waves-effect waves-light clear-btn" id="clear-table"><i class="material-icons left">clear_all</i> Clear Rules</button>
@@ -87,6 +88,7 @@
               <td class="partial-url-match"></td>
               <td class="verb"></td>
               <td class="error-code"></td>
+              <td class="error-response"></td>
               <td class="user-action">
                 <a class="btn-floating waves-effect waves-light" title="Edit">
                     <i class="material-icons left edit">edit</i>
@@ -98,7 +100,6 @@
             </tr>
           </template>
 
-
           <div class="table-list-out">
             <table id="result-table" class="table result-table highlight responsive-table">
               <thead class="thead-light">
@@ -107,6 +108,7 @@
                   <th scope="col" class="no-wrap">Partial URL Match</th>
                   <th scope="col">Verb</th>
                   <th scope="col" class="no-wrap">Error Code</th>
+                  <th scope="col" class="no-wrap">Error Response</th>
                   <th scope="col"></th>
                 </tr>
               </thead>

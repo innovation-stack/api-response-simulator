@@ -9,6 +9,7 @@
   const urlInput = document.querySelector('#url');
   const verbInput = document.querySelector('#verb');
   const errorCodeInput = document.querySelector('#error-code');
+  const errorResponseInput = document.querySelector('#error-response');
   const partialUrlMatchCheckbox = document.querySelector('#partial-url-match');
   const clearTableButton = document.querySelector('#clear-table');
   const noDataContainer = document.querySelector('#no-data-container');
@@ -24,6 +25,7 @@
       entryRefTemplate !== null &&
       urlInput !== null &&
       errorCodeInput !== null &&
+      errorResponseInput !== null &&
       verbInput !== null &&
       noDataContainer !== null &&
       partialUrlMatchCheckbox !== null;
@@ -32,30 +34,33 @@
   function clearControls() {
     urlInput.value = '';
     errorCodeInput.value = '';
+    errorResponseInput.value = '';
     partialUrlMatchCheckbox.checked = false;
     urlInput.focus();
   }
 
-  function addEntry(url, verb, errorCode, partialUrlMatch, id) {
+  function addEntry(url, verb, errorCode, errorResponse, partialUrlMatch, id) {
     entries.push({
       id,
       url,
       verb,
       partialUrlMatch,
-      errorCode
+      errorCode,
+      errorResponse
     });
     chrome.storage.sync.set({entries}, function () {
       showTable();
     });
   }
 
-  function updateEntry(url, verb, errorCode, partialUrlMatch, id) {
+  function updateEntry(url, verb, errorCode, errorResponse, partialUrlMatch, id) {
     const newEntry = {
       id,
       url,
       verb: verb.toUpperCase(),
       partialUrlMatch,
-      errorCode
+      errorCode,
+      errorResponse
     };
     const entryIndex = entries.findIndex(function (entry) {
       return +entry.id === +id;
@@ -68,42 +73,45 @@
     chrome.storage.sync.set({entries});
   }
 
-  function renderRow(url, verb, errorCode, partialUrlMatch, id) {
+  function renderRow(url, verb, errorCode, errorResponse, partialUrlMatch, id) {
     const row = document.importNode(entryRefTemplate.content, true);
     row.querySelector('.url>div').textContent = url;
     row.querySelector('.partial-url-match').textContent = partialUrlMatch;
     row.querySelector('.verb').textContent = verb.toUpperCase();
     row.querySelector('.error-code').textContent = errorCode;
+    row.querySelector('.error-response').textContent = errorResponse;
     row.querySelector('.delete').setAttribute('data-id', id);
     row.querySelector('.edit').setAttribute('data-id', id);
     resultTableBody.appendChild(row);
   }
 
-  function updateRow(row, url, verb, errorCode, partialUrlMatch) {
+  function updateRow(row, url, verb, errorCode, errorResponse, partialUrlMatch) {
     row.querySelector('.url').textContent = url;
     row.querySelector('.partial-url-match').textContent = partialUrlMatch;
     row.querySelector('.verb').textContent = verb.toUpperCase();
     row.querySelector('.error-code').textContent = errorCode;
+    row.querySelector('.error-response').textContent = errorResponse;
   }
 
   function saveEntry(event) {
     const url = urlInput.value;
     const partialUrlMatch = partialUrlMatchCheckbox.checked;
     const errorCode = errorCodeInput.value;
+    const errorResponse = errorResponseInput.value;
     const verb = verbInput.value;
     const selectedRow = resultTableBody.querySelector('.result-row.selected');
     let id;
 
-    if (url && verb && errorCode) {
+    if (url && verb && errorCode && errorResponse) {
       event.preventDefault();
       if (isInEditMode && entries.length > 0 && selectedRow) {
         id = selectedRow.querySelector('[data-id]').getAttribute('data-id');
-        updateRow(selectedRow, url, verb, errorCode, partialUrlMatch);
-        updateEntry(url, verb, errorCode, partialUrlMatch, id);
+        updateRow(selectedRow, url, verb, errorCode, errorResponse, partialUrlMatch);
+        updateEntry(url, verb, errorCode, errorResponse, partialUrlMatch, id);
       } else {
         id = new Date().getTime()
-        renderRow(url, verb, errorCode, partialUrlMatch, id);
-        addEntry(url, verb, errorCode, partialUrlMatch, id);
+        renderRow(url, verb, errorCode, errorResponse, partialUrlMatch, id);
+        addEntry(url, verb, errorCode, errorResponse, partialUrlMatch, id);
       }
       isInEditMode = false;
       clearControls();
@@ -134,10 +142,12 @@
     const verb = row.querySelector('.verb').textContent;
     const partialUrlMatch = row.querySelector('.partial-url-match').textContent;
     const errorCode = row.querySelector('.error-code').textContent;
+    const errorResponse = row.querySelector('.error-response').textContent;
 
     urlInput.value = url;
     verbInput.value = verb;
     errorCodeInput.value = errorCode;
+    errorResponseInput.value = errorResponse;
     partialUrlMatchCheckbox.checked = partialUrlMatch === 'true';
     row.classList.add('selected');
     isInEditMode = true;
@@ -147,6 +157,7 @@
     setTimeout(function () {
       verbInput.focus();
       errorCodeInput.focus();
+      errorResponseInput.focus();
       partialUrlMatchCheckbox.focus();
       urlInput.focus();
     }, 0);
@@ -181,7 +192,7 @@
     const totalEntries = entries.length;
     for (let index = 0; index < totalEntries; index++) {
       const entry = entries[index];
-      renderRow(entry.url, entry.verb, entry.errorCode, entry.partialUrlMatch, entry.id);
+      renderRow(entry.url, entry.verb, entry.errorCode, entry.errorResponse, entry.partialUrlMatch, entry.id);
     }
   }
 

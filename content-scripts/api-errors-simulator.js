@@ -91,10 +91,10 @@
                     if (this.readyState === 4) {
                         const matchedEntry = getMatchedEntry(this);
                         if (matchedEntry) {
-                            self.statusText = 'Error thrown by API Errors Simulator Chrome Extension';
+                            self.statusText = actual.statusText;
                             self.status = +matchedEntry.errorCode;
-                            self.response = {error: true};
-                            self.responseText = JSON.stringify({error: true});
+                            self.response = actual.response;
+                            self.responseText = matchedEntry.errorResponse;
                         } else {
                             self.statusText = actual.statusText;
                             self.status = actual.status;
@@ -116,15 +116,21 @@
                 for (let index = 0; index < totalGettersSetters; index++) {
                     const item = gettersSetters[index];
                     Object.defineProperty(self, item, {
-                        get: function() {return actual[item];},
-                        set: function(val) {actual[item] = val;}
+                        get: function() {
+                            return actual[item];
+                        },
+                        set: function(val) {
+                            actual[item] = val;
+                        }
                     });
                 }
 
                 for (let index = 0; index < totalPassThroughMethods; index++) {
                     const item = passThroughMethods[index];
                     Object.defineProperty(self, item, {
-                        value: function() {return actual[item].apply(actual, arguments);}
+                        value: function() {
+                            return actual[item].apply(actual, arguments);
+                        }
                     });
                 }
             };
