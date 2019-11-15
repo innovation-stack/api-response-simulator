@@ -92,9 +92,9 @@
                         const matchedEntry = getMatchedEntry(this);
                         if (matchedEntry) {
                             self.statusText = actual.statusText;
-                            self.status = +matchedEntry.errorCode;
-                            self.response = actual.response;
-                            self.responseText = matchedEntry.errorResponse;
+                            self.status = +matchedEntry.responseCode;
+                            self.response = actual.responseValue;
+                            self.responseText = matchedEntry.responseValue;
                         } else {
                             self.statusText = actual.statusText;
                             self.status = actual.status;
@@ -145,7 +145,7 @@
     function prepareDOM() {
         if (document.head && document.body) {
             chrome.storage.sync.get(['entries'], function (result) {
-                const xhrScript = buildScriptTag('api-errors-simulator');
+                const xhrScript = buildScriptTag('api-response-simulator');
                 result.entries = result.entries || [];
                 const mappedEntries = result.entries.reduce(function (acc, entry) {
                     acc[entry.url] = entry;
@@ -160,10 +160,10 @@
     }
 
     function destroyDOM() {
-        let xhrScript = document.querySelector('#api-errors-simulator');
+        let xhrScript = document.querySelector('#api-response-simulator');
         if (xhrScript) {
             xhrScript.remove();
-            xhrScript = buildScriptTag('api-errors-simulator-destroy');
+            xhrScript = buildScriptTag('api-response-simulator-destroy');
             xhrScript.innerHTML = buildRestoreXMLHttpRequestScript();
             document.head.prepend(xhrScript);
             setTimeout(function () {

@@ -1,11 +1,11 @@
 {
-    "name": "API Errors Simulator",
+    "name": "API Response Simulator",
     "manifest_version": 2,
     "version": "0.1.0",
     "browser_action": {
         "default_popup": "./popup/popup.html"
     },
-    "description": "Simulate API errors to test your app's behavior",
+    "description": "Simulate API response to test your app's behavior",
     "icons": {
         "128": "icon128.png",
         "48": "icon48.png",
@@ -20,7 +20,7 @@
     "options_page": "./options/options.html",
     "content_scripts": [
         {
-            "js": ["./content-scripts/api-errors-simulator.js"],
+            "js": ["./content-scripts/api-response-simulator.js"],
             "run_at": "document_start",
             "matches": [
                 "<all_urls>"
