@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>API Error Simulator Options</title>
+  <title>API Response Simulator Options</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../vendor/materialize/css/materialize.min.css">
@@ -14,11 +14,11 @@
   <main>
     <header class="main-header">
       <div class="container-fluid">
-        <span class="logo-popup"></span>API Errors Simulator
+        <span class="logo-popup"></span>API Response Simulator
       </div>
     </header>
     <div class="container">
-      <label class="info-text">Enter API error configuration that you want to test your app against.</label>
+      <label class="info-text">Enter API request and response configuration that you want to test your app against.</label>
 
       <div class="card top-form">
         <div class="card-content">
@@ -57,12 +57,12 @@
                   </span>
                 </div>
                 <div class="input-field col s8 l5 xl5">
-                  <input type="number" class="validate" id="error-code" required>
-                  <label for="error-code">Error Code</label>
+                  <input type="number" class="validate" id="response-code" required>
+                  <label for="response-code">Response Code</label>
                 </div>
                 <div class="input-field col s8 l5 xl5">
-                  <input type="text" class="validate" id="error-response" required>
-                  <label for="error-response">Response</label>
+                  <input type="text" class="validate" id="response-value" required>
+                  <label for="response-value">Response</label>
                 </div>
               </div>
               <div class="col s12 l6 x15 pad-r-0 pad-l-0">
@@ -87,8 +87,8 @@
               <td class="url"><div class="break-text url-max-width"></div></td>
               <td class="partial-url-match"></td>
               <td class="verb"></td>
-              <td class="error-code"></td>
-              <td class="error-response"></td>
+              <td class="response-code"></td>
+              <td class="response-value"></td>
               <td class="user-action">
                 <a class="btn-floating waves-effect waves-light" title="Edit">
                     <i class="material-icons left edit">edit</i>
@@ -107,8 +107,8 @@
                   <th scope="col">URL</th>
                   <th scope="col" class="no-wrap">Partial URL Match</th>
                   <th scope="col">Verb</th>
-                  <th scope="col" class="no-wrap">Error Code</th>
-                  <th scope="col" class="no-wrap">Error Response</th>
+                  <th scope="col" class="no-wrap">Response Code</th>
+                  <th scope="col" class="no-wrap">Response Value</th>
                   <th scope="col"></th>
                 </tr>
               </thead>
